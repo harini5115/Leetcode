@@ -10,8 +10,9 @@ class Solution(object):
             if nums[i] >= nums[i+1]:
                 break
         else:
-            return (n-2)*(n-1)//2
-        for j in range(n-1, 0, -1):
+            return (n-2)*(n-1)//2                
+        for k in range(1,n):
+            j = n-k
             if nums[j-1] >= nums[j]:
                 break
         l = 0
