@@ -6,26 +6,22 @@
 #         self.right = right
 class Solution:
     def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
-        
-        
-        def get_kids(node, ans):
+        ans = [0]
+        def get_min_max_kids(node, min_val, max_val):
             if not node:
-                return ans
-            ans.append(node.val)
-            get_kids(node.left,ans)
-            get_kids(node.right,ans)
-            return ans
-        
-        def get_ans(ans, node):
-            if not node:
-                return ans
-            kids = get_kids(node, [])
-            for k in kids:
-                ans = max(ans, abs(node.val- k))
-            ans = get_ans(ans, node.left)
-            ans = get_ans(ans, node.right)
-            return ans
-        return get_ans(0, root)
+                return
+            if (min_val == -1):
+                min_val = node.val
+                max_val = node.val
+            else:
+                ans[0] = max(abs(node.val-min_val), abs(node.val - max_val), ans[0])
+            min_val = min(node.val, min_val)
+            max_val = max(node.val, max_val)
+            get_min_max_kids(node.left, min_val, max_val)
+            get_min_max_kids(node.right, min_val, max_val)
+            
+        get_min_max_kids(root, -1, -1)    
+        return ans[0]
                 
                 
         
